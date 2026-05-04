@@ -9,7 +9,7 @@ html
         a.return(href="/") Return to the homepage
         .form-wrapper
             h2 Child Registration
-            form(method="POST")
+            form(method="POST" action=`/update-cobj/${child.id}`)
                 label(for="name") Name
                 input(type="text" name="name" required)
 
