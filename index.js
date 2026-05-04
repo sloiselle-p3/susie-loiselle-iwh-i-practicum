@@ -37,16 +37,16 @@ app.get('/', async (req, res) => {
 // Send this data along in the next route.
 app.get('/update-cobj', async (req, res) => {
     // http://localhost:3000/update-cobj
-    const childrenURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=name,date_of_birth,ethnicity,blood_type`;
+    const childURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=name,date_of_birth,ethnicity,blood_type`;
     
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_TOKEN}`,
         'Content-Type': 'application/json'
     }
     try {
-        const response = await axios.get(childrenURL, { headers });
+        const response = await axios.get(childURL, { headers });
         const data = response.data.results || [];
-        res.render('children', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });  
+        res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });  
     } catch (error) {
         console.error(error);
     }

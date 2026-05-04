@@ -5,11 +5,30 @@ html
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet", href="/css/style.css")
     body    
-        h1 ${title}
-        .cards 
-            .card 
-                h2.card__name #{data.properties.name}
-                p.card__dob Date of Birth: #{data.properties.date_of_birth}
-                p.card__ethnicity Ethnicity: #{data.properties.ethnicity}
-                p.card__blood_type Blood type: #{data.properties.blood_type}
-        a(href="/") Return to the homepage
+        h1 #{title}
+        a.return(href="/") Return to the homepage
+        .form-wrapper
+            h2 Child Registration
+            form(method="POST")
+                label(for="name") Name
+                input(type="text" name="name" required)
+
+                label(for="date_of_birth") Date of Birth
+                input(type="date" name="date_of_birth" required)
+
+                label(for="ethnicity") Ethnicity
+                input(type="text" name="ethnicity" required)
+
+                label(for="blood_type") Blood Type
+                select(name="blood_type" id="blood_type")
+                    option(value="") Select a blood type
+                    option(value="A+") A+
+                    option(value="A-") A-
+                    option(value="B+") B+
+                    option(value="B-") B-
+                    option(value="AB+") AB+
+                    option(value="AB-") AB-
+                    option(value="O+") O+
+                    option(value="O-") O-
+                
+                input(type="submit" value="Submit")
