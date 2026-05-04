@@ -6,13 +6,26 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body    
         h1 Children
-        .cards 
-            if data && data.length
-                each child in data
-                    .card 
-                        h2.card__name #{child.properties.name}
-                        p.card__dob Date of Birth: #{child.properties.date_of_birth}
-                        p.card__ethnicity Ethnicity: #{child.properties.ethnicity}
-                        p.card__blood_type Blood type: #{child.properties.blood_type}
-            else
-                h2 No children found
+        a.return(href="/update-cobj") Add to this table
+
+        if data && data.length
+            table
+                tbody 
+                    tr
+                        th Name
+                        th Date of Birth
+                        th Ethnicity
+                        th Blood type
+
+                    each child in data
+                        tr
+                            td 
+                                p.card__name #{child.properties.name}
+                            td
+                                p.card__dob #{child.properties.date_of_birth}
+                            td
+                                p.card__ethnicity #{child.properties.ethnicity}
+                            td
+                                p.card__blood_type #{child.properties.blood_type}
+        else
+            h2 No children found

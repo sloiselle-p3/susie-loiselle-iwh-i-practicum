@@ -84,3 +84,31 @@ input[type="submit"] {
     display: block;
     margin: 1rem 1rem 2rem;
 }
+
+table {
+    margin: 1rem;
+    padding: 10px;
+    border: 2px double navy;
+}
+
+table th:not(:first-child),
+table td:not(:first-child) {
+    text-align: center
+}
+
+table th:first-child {
+    text-align: left;
+}
+
+th {
+    background: navy;
+    color: white;
+}
+
+td {
+    border-bottom: 1px solid navy;
+}
+
+th, td {
+    padding: 5px 15px;
+}
