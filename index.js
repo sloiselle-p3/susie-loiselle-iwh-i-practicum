@@ -14,10 +14,9 @@ app.use( express.json() );
 const PRIVATE_APP_TOKEN = process.env.CLIENT_ID;
 
 
-// TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. 
-// Pass this data along to the front-end and create a new pug template in the views folder.
-app.get('/children', async (req, res) => {
-    // http://localhost:3000/children
+// TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
+app.get('/', async (req, res) => {
+    // http://localhost:3000/
     const childrenURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=name,date_of_birth,ethnicity,blood_type`;
     
     const headers = {
@@ -33,7 +32,25 @@ app.get('/children', async (req, res) => {
     }
 });
 
-// TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
+
+// TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. 
+// Send this data along in the next route.
+app.get('/update-cobj', async (req, res) => {
+    // http://localhost:3000/update-cobj
+    const childrenURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=name,date_of_birth,ethnicity,blood_type`;
+    
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_TOKEN}`,
+        'Content-Type': 'application/json'
+    }
+    try {
+        const response = await axios.get(childrenURL, { headers });
+        const data = response.data.results || [];
+        res.render('children', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });  
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.

@@ -1,0 +1,15 @@
+//doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body    
+        h1 ${title}
+        .cards 
+            .card 
+                h2.card__name #{data.properties.name}
+                p.card__dob Date of Birth: #{data.properties.date_of_birth}
+                p.card__ethnicity Ethnicity: #{data.properties.ethnicity}
+                p.card__blood_type Blood type: #{data.properties.blood_type}
+        a(href="/") Return to the homepage
