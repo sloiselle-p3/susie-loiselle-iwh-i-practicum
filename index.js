@@ -26,7 +26,7 @@ app.get('/', async (req, res) => {
     try {
         const response = await axios.get(childrenURL, { headers });
         const data = response.data.results || [];
-        res.render('children', { title: 'Children | HubSpot APIs', data });  
+        res.render('homepage', { title: 'Children | HubSpot APIs', data });  
     } catch (error) {
         console.error(error);
     }
@@ -54,7 +54,30 @@ app.get('/update-cobj', async (req, res) => {
 
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
+app.post('/update', async (req, res) => {
+    const update = {
+        properties: {
+            "date_of_birth": req.body.date_of_birth,
+            "ethnicity": req.body.ethnicity,
+            "blood_type": req.body.blood_type
+        }
+    }
 
+    const newRecord = req.query.name;
+    const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${newRecord}?idProperty=name`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_TOKEN}`,
+        'Content-Type': 'application/json'
+    };
+
+    try { 
+        await axios.patch(updateContact, update, { headers } );
+        res.redirect('back');
+    } catch(err) {
+        console.error(err);
+    }
+
+});
 
 
 /** 
