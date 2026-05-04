@@ -18,7 +18,7 @@ const PRIVATE_APP_TOKEN = process.env.CLIENT_ID;
 // Pass this data along to the front-end and create a new pug template in the views folder.
 app.get('/children', async (req, res) => {
     // http://localhost:3000/children
-    const childrenURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=ethnicity`;
+    const childrenURL = `https://api.hubapi.com/crm/v3/objects/2-61512082?properties=name,date_of_birth,ethnicity,blood_type`;
     
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_TOKEN}`,
@@ -26,13 +26,10 @@ app.get('/children', async (req, res) => {
     }
     try {
         const response = await axios.get(childrenURL, { headers });
-        console.log('API RESPONSE:', response.data);
         const data = response.data.results || [];
-        console.log(JSON.stringify(response.data.results[0].properties, null, 2));
         res.render('children', { title: 'Children | HubSpot APIs', data });  
     } catch (error) {
-        console.error(error.response?.data || error.message);
-        res.render('children', { data: [] });
+        console.error(error);
     }
 });
 

@@ -10,6 +10,9 @@ html
             if data && data.length
                 each child in data
                     .card 
-                        pre= JSON.stringify(child.properties, null, 2)
+                        h2.card__name #{child.properties.name}
+                        p.card__dob Date of Birth: #{child.properties.date_of_birth}
+                        p.card__ethnicity Ethnicity: #{child.properties.ethnicity}
+                        p.card__blood_type Blood type: #{child.properties.blood_type}
             else
                 p No children found
