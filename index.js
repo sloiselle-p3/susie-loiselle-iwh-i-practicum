@@ -11,7 +11,7 @@ app.use( express.json() );
 
 
 // *DO NOT INCLUDE the private app access token in your repo. Don't do this practicum in your normal account
-const PRIVATE_APP_TOKEN = process.env.CLIENT_ID;
+const PRIVATE_APP_TOKEN = process.env.PRIVATE_APP_TOKEN;
 
 
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
@@ -54,17 +54,18 @@ app.get('/update-cobj', async (req, res) => {
 
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
-app.post('/update-cobj/:id', async (req, res) => {
+app.post('/update-cobj/', async (req, res) => {
     const childData = {
         properties: {
+            "name": req.body.name,
             "date_of_birth": req.body.date_of_birth,
             "ethnicity": req.body.ethnicity,
             "blood_type": req.body.blood_type
         }
     }
 
-    const recordID = req.params.id;
-    const registerChild = `https://api.hubapi.com/crm/v3/objects/2-61512082/${recordID}`;
+    //const recordID = req.params.id;
+    const registerChild = `https://api.hubapi.com/crm/v3/objects/2-61512082/`;
 
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_TOKEN}`,
@@ -72,10 +73,11 @@ app.post('/update-cobj/:id', async (req, res) => {
     };
 
     try { 
-        await axios.patch(registerChild, childData, { headers } );
-        res.redirect('/homepage');
+        await axios.post(registerChild, childData, { headers } );
+        res.redirect('/');
     } catch(error) {
-        console.error(error);
+        //console.error(error);
+        console.error(error.response?.data || error.message);
     }
 
 });
